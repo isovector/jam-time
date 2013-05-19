@@ -3,6 +3,11 @@
 import sys,math
 sys.dont_write_bytecode = 1
 
-from jam.game.Baller import Baller
+from jam.game.JamMode import JamMode
 
-Baller()
+jam = JamMode()
+jam.init()
+
+while True:
+    jam.update(0.1)
+    jam.draw(0)
