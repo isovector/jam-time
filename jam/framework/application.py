@@ -8,26 +8,31 @@ import pygame
 from pygame.locals import *
 from pygame.color import *
 
-#-------------------------------------
+from GameMode import *
 
-width, height = 700, 400
-fps = 60
-dt = 1./fps
-
-#-------------------------------------
-
-def main():
-	#Initialize Pygame
-	pygame.init()
+class Application:
 	
-	#Setup the window
-	pygame.display.set_caption('Jam Time') 
-	screen = pygame.display.set_mode((width, height))
+	def __init__(self, gameMode):
+		self.gameMode = gameMode
+		
+	def setMode(self, newMode):
+		self.gameMode = newMode
+		pass
 	
-	clock = pygame.time.Clock()
-	running = True
+	def setupWindow(self):
+		width, height = 700, 400
+		
+		#Initialize Pygame
+		pygame.init()
 	
-	while running:
+		#Setup the window
+		pygame.display.set_caption('Jam Time') 
+		screen = pygame.display.set_mode((width, height))		
+	
+	def runGame(self):
+		running = True
+		
+		while running:
 		screen.fill(pygame.color.THECOLORS["blue"])
 		
 		for event in pygame.event.get():  
@@ -35,8 +40,6 @@ def main():
 				running = False         
 			
 		pygame.display.flip()
-		clock.tick(fps)
-		
-		
-if __name__ == '__main__':
-	sys.exit(main())
+
+
+
