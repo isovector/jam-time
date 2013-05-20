@@ -33,10 +33,6 @@ class Application:
         self.screen = pygame.display.set_mode((self.width, self.height))        
         self.clock = pygame.time.Clock() 
     
-    def __eventFiler(gameEvent):
-        
-        pass
-    
     def runGame(self):
         running = True
         
