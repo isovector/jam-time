@@ -9,7 +9,7 @@ from pygame.locals import *
 from pygame.color import *
 
 from GameMode import *
-from EventHandler import *
+from KeyMap import *
 
 class Application:
     def __init__(self, gameMode):
@@ -20,6 +20,7 @@ class Application:
         self.delta = 1./self.fps
         self.clock = None
         self.screen = None
+        self.keymap = KeyMap()
         
     def setMode(self, newMode):
         self.gameMode = newMode
@@ -35,15 +36,18 @@ class Application:
     
     def runGame(self):
         running = True
+        pygame.init() 
         
         while running:
             self.screen.fill(pygame.color.THECOLORS["blue"])
             
             for event in pygame.event.get():  
-                eventType = EventHandler(event).type
-                if eventType == "QUIT":
+                if event.type == QUIT or (event.type == KEYDOWN and (event.key in [K_ESCAPE])):
                     running = False   
-                elif eventType == "CONTROLLER":
+                elif event.type in [VIDEORESIZE, VIDEOEXPOSE]:
+                    pass
+                elif (event.type == KEYDOWN):
+                    self.keymap.update(event)
                     self.gameMode.onInputEvent(event)
             
             self.gameMode.update(self.delta);
