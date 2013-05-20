@@ -10,3 +10,6 @@ class GameMode:
         
     def draw(self, canvas):
         print("draw is not defined in GameMode")
+    
+    def onInputEvent(self, event):
+        print("Input event: valid controller input")
