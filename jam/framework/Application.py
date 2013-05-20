@@ -19,9 +19,6 @@ class Application:
         self.delta = 1/self.fps
         self.clock = None
         self.screen = None
-    
-    def init(self, gameMode):
-        pass
         
     def setMode(self, newMode):
         self.gameMode = newMode
@@ -45,8 +42,8 @@ class Application:
                 if event.type == QUIT or (event.type == KEYDOWN and (event.key in [K_ESCAPE, K_q])):        
                     running = False         
             
-            self.gameMode.update(self.screen);
-            self.gameMode.draw(self.delta);
+            self.gameMode.update(self.delta);
+            self.gameMode.draw(self.screen);
             pygame.display.flip()
 
 
