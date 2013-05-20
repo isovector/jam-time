@@ -16,7 +16,7 @@ class Application:
         self.width = 700
         self.height = 400
         self.fps = 60
-        self.delta = 1/self.fps
+        self.delta = 1./self.fps
         self.clock = None
         self.screen = None
         
