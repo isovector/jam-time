@@ -9,6 +9,7 @@ from pygame.locals import *
 from pygame.color import *
 
 from GameMode import *
+from EventHandler import *
 
 class Application:
     def __init__(self, gameMode):
@@ -37,10 +38,13 @@ class Application:
         
         while running:
             self.screen.fill(pygame.color.THECOLORS["blue"])
-        
+            
             for event in pygame.event.get():  
-                if event.type == QUIT or (event.type == KEYDOWN and (event.key in [K_ESCAPE, K_q])):        
-                    running = False         
+                eventType = EventHandler(event).type
+                if eventType == "QUIT":
+                    running = False   
+                elif eventType == "CONTROLLER":
+                    self.gameMode.onInputEvent(event)
             
             self.gameMode.update(self.delta);
             self.gameMode.draw(self.screen);
