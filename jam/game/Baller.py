@@ -5,6 +5,7 @@ class Baller(Entity):
     def __init__(self, pos):
         Entity.__init__(self, pos)
         
-    def draw(self, camera, canvas):
-        pos, size = camera.toScreen(self.pos)
-        pygame.draw.rect(canvas, 0xFF0000, (pos[0], pos[1], 25 * size, 25 * size))
+    def draw(self, canvas, screenPos, scale):
+        width = 50. * scale
+        height = 100. * scale
+        pygame.draw.rect(canvas, 0xFF0000, (screenPos[0] - width / 2, screenPos[1] - height, width, height))

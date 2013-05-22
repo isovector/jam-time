@@ -1,4 +1,5 @@
 import math
+import Constants
 from jam.common.Vec3d import Vec3d
 
 class Camera:
@@ -10,16 +11,21 @@ class Camera:
         self.farPlane = 50
         self.focus = Vec3d(0, 0, 0)
         self.offset = (350, 200)
+        self.depthMultiplier = Constants.COURT_GFX_DEPTH / Constants.COURT_DEPTH
+        self.widthMultiplier = Constants.COURT_GFX_LENGTH / Constants.COURT_LENGTH
         
     def update(self, delta):
         pass
+        
+    def getDepthModifier(self, world):
+        return 1 / ((world.z - self.focus.z) / Constants.COURT_DEPTH + 1.5)
 
     def toScreen(self, world):
         local = world - self.focus
         
-        scaleFactor = 1 - 2 * math.tan(self.fov) * (local.z / 50)
+        depthModifier = self.getDepthModifier(world)
+        
+        x = local.x * self.widthMultiplier * depthModifier
+        y = local.z * self.depthMultiplier + local.y
 
-        x = local.x * scaleFactor
-        y = (local.y) * scaleFactor
-
-        return (x + self.offset[0], -y + self.offset[1]), scaleFactor
+        return (x + self.offset[0], -y + self.offset[1])

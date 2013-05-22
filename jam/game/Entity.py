@@ -7,5 +7,5 @@ class Entity:
     def update(self, delta):
         pass
         
-    def draw(self, camera, canvas):
+    def draw(self, canvas, screenPos, scale):
         pass
