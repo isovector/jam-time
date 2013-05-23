@@ -1,12 +1,13 @@
 from Camera import Camera
 from Baller import Baller
 from Court import Court
+from JamModeUpdate import JamModeUpdate
 
 import pygame
 from jam.common.Vec3d import Vec3d
 from jam.framework.GameMode import GameMode
 
-class JamMode(GameMode):
+class JamMode(JamModeUpdate, GameMode):
     def __init__(self):
         GameMode.__init__(self)
         
@@ -25,27 +26,6 @@ class JamMode(GameMode):
         #self.camera.focus = Vec3d(-14, 0, 0)
         
         print("Initialized Jamming")
-        
-        
-    def update(self, delta):
-        self.camera.update(delta)
-        
-        self.totalTime += delta
-        
-        if 5 < self.totalTime < 50:
-            self.entities[0].pos += Vec3d(0.5, 0, 0.2) * delta
-        if 55 < self.totalTime < 100:
-            self.entities[0].pos -= Vec3d(0.5, 0, 0.2) * delta
-        if self.totalTime > 105:
-            self.totalTime = 0
-            
-        self.camera.focus = self.entities[0].pos
-        
-        #self.entities[1].pos += Vec3d(0, 0, 5) * delta
-        #self.entities[2].pos += Vec3d(0, 0, 100.) * delta
-        
-        for entity in self.entities:
-            entity.update(delta)
         
         
     def draw(self, canvas):

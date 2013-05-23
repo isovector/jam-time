@@ -139,6 +139,9 @@ allKeys = {
 class KeyMap:
     def __init__ (self):
         self.keymap = dict([(key, False) for key in allKeys])
+        
+    def __getitem__(self, item):
+        return self.keymap[item]
     
     def resetMap(self):
         self.keymap = dict([(key, False) for key in allKeys])

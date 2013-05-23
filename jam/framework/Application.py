@@ -8,6 +8,8 @@ from GameMode import *
 from KeyMap import *
 
 class Application:
+    keymap = 0
+    
     def __init__(self, gameMode):
         pygame.init()
         
@@ -18,7 +20,8 @@ class Application:
         self.delta = 1./self.fps
         self.clock = None
         self.screen = None
-        self.keymap = KeyMap()
+        
+        Application.keymap = KeyMap()
         
     def setMode(self, newMode):
         self.gameMode = newMode
@@ -41,7 +44,7 @@ class Application:
                 elif event.type in [VIDEORESIZE, VIDEOEXPOSE]:
                     pass
                 elif event.type == KEYDOWN or event.type == KEYUP:
-                    self.keymap.onInputEvent(event)
+                    Application.keymap.onInputEvent(event)
                     self.gameMode.onInputEvent(event)
             
             self.gameMode.update(self.delta);
