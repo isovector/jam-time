@@ -1,9 +1,5 @@
 #!/usr/bin/python2
 
-import sys,math
-
-sys.dont_write_bytecode = 1
-
 import pygame
 from pygame.locals import *
 from pygame.color import *
@@ -13,6 +9,8 @@ from KeyMap import *
 
 class Application:
     def __init__(self, gameMode):
+        pygame.init()
+        
         self.gameMode = gameMode
         self.width = 700
         self.height = 400
@@ -26,10 +24,6 @@ class Application:
         self.gameMode = newMode
     
     def setupWindow(self):        
-        #Initialize Pygame
-        pygame.init()
-    
-        #Setup the window
         pygame.display.set_caption('Jam Time') 
         self.screen = pygame.display.set_mode((self.width, self.height))        
         self.clock = pygame.time.Clock() 
@@ -46,8 +40,8 @@ class Application:
                     running = False   
                 elif event.type in [VIDEORESIZE, VIDEOEXPOSE]:
                     pass
-                elif (event.type == KEYDOWN):
-                    self.keymap.update(event)
+                elif event.type == KEYDOWN or event.type == KEYUP:
+                    self.keymap.onInputEvent(event)
                     self.gameMode.onInputEvent(event)
             
             self.gameMode.update(self.delta);

@@ -32,8 +32,12 @@ class JamMode(GameMode):
         
         self.totalTime += delta
         
-        if 5 < self.totalTime < 10:
-            self.entities[0].pos += Vec3d(5, 0, 2) * delta
+        if 5 < self.totalTime < 50:
+            self.entities[0].pos += Vec3d(0.5, 0, 0.2) * delta
+        if 55 < self.totalTime < 100:
+            self.entities[0].pos -= Vec3d(0.5, 0, 0.2) * delta
+        if self.totalTime > 105:
+            self.totalTime = 0
             
         self.camera.focus = self.entities[0].pos
         

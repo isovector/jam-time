@@ -1,11 +1,7 @@
 #!/usr/bin/python2
 
-import sys,math
-
-sys.dont_write_bytecode = 1
-
-import pygame
 from pygame.locals import *
+
 allKeys = {
       K_BACKSPACE, 
       K_TAB, 
@@ -138,21 +134,14 @@ allKeys = {
       K_BREAK,               
       K_MENU,               
       K_POWER,             
-      K_EURO}      
-
+      K_EURO}
 
 class KeyMap:
-    
     def __init__ (self):
         self.keymap = dict([(key, False) for key in allKeys])
     
     def resetMap(self):
-        self.keymap.clear()
         self.keymap = dict([(key, False) for key in allKeys])
     
-    def update(self, event):
-            pygame.init()
-            self.resetMap()
+    def onInputEvent(self, event):
             self.keymap[event.key] = (event.type == KEYDOWN)
-
-
