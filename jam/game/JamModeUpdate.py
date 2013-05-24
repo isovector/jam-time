@@ -8,8 +8,5 @@ class JamModeUpdate:
             
         self.camera.focus = self.entities[0].pos
         
-        #self.entities[1].pos += Vec3d(0, 0, 5) * delta
-        #self.entities[2].pos += Vec3d(0, 0, 100.) * delta
-        
-        for entity in self.entities:
-            entity.update(delta)
+        #for entity in self.entities:
+        self.entities[0].update(delta)

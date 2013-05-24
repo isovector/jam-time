@@ -11,7 +11,7 @@ class Capsule:
         self.manager = manager
         
     def move(self, rel):
-        self.manager.moveCapsule(self, rel)
+        self.manager.moveCapsule(self, rel, [])
         
     @property
     def x(self):
