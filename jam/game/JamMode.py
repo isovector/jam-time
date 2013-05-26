@@ -1,5 +1,7 @@
-from Camera import Camera
 from Baller import Baller
+from Camera import Camera
+from Capsule import Capsule
+from CapsuleManager import CapsuleManager
 from Court import Court
 from JamModeUpdate import JamModeUpdate
 
@@ -15,17 +17,20 @@ class JamMode(JamModeUpdate, GameMode):
         self.court = Court()
         self.entities = []
         
+        self.physics = CapsuleManager()
         self.totalTime = 0
         
         
     def init(self):
-        self.entities.append(Baller(Vec3d(-14, 0, -7)))
-        #self.entities.append(Baller(Vec3d(600, 0, 300)))
-        #self.entities.append(Baller())
+        self.addBaller(Baller(Vec3d(-14, 0, -7)))
+        self.addBaller(Baller(Vec3d(8, 0, 0)))
+        self.addBaller(Baller(Vec3d(8, 0, -1)))
+        self.addBaller(Baller(Vec3d(9, 0, -0.5)))
         
-        #self.camera.focus = Vec3d(-14, 0, 0)
-        
-        print("Initialized Jamming")
+    
+    def addBaller(self, baller):
+        self.physics.addCapsule(baller.capsule)
+        self.entities.append(baller)
         
         
     def draw(self, canvas):

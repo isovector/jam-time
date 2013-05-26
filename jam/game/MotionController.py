@@ -6,4 +6,4 @@ class MotionController:
         pass
         
     def move(self, relative):
-        self.owner.pos += relative
+        self.owner.capsule.move(relative)

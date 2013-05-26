@@ -10,7 +10,7 @@ class Baller(Entity):
         Entity.__init__(self, pos)
         self.input = InputController(self)
         self.motion = MotionController(self)
-        self.action = ActionController(self)
+        self.action = ActionController()
         
     def draw(self, canvas, screenPos, scale):
         width = 50. * scale
