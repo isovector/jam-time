@@ -27,14 +27,22 @@ class JamMode(JamModeUpdate, GameMode):
         self.addBaller(Baller(Vec3d(8, 0, -1)))
         self.addBaller(Baller(Vec3d(9, 0, -0.5)))
         
+        self.addBaller(Baller(Vec3d(-7, 1, -5)))
+        
+        # THIS IS A BIG OLD HACK
+        self.player = self.entities[0]
+        
     
     def addBaller(self, baller):
         self.physics.addCapsule(baller.capsule)
         self.entities.append(baller)
+        baller.register(self)
         
         
     def draw(self, canvas):
         self.court.draw(self.camera, canvas)
+        
+        self.entities = sorted(self.entities, key=lambda entity: -entity.pos.z)
         for entity in self.entities:
             entity.draw(canvas, self.camera.toScreen(entity.pos), self.camera.getDepthModifier(entity.pos))
         

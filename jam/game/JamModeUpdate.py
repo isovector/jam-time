@@ -6,7 +6,7 @@ class JamModeUpdate:
         
         self.totalTime += delta
             
-        self.camera.focus = self.entities[0].pos
+        self.camera.focus = self.player.pos
         
         #for entity in self.entities:
-        self.entities[0].update(delta)
+        self.player.update(delta)

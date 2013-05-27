@@ -35,6 +35,7 @@ class Camera:
         depthModifier = self.getDepthModifier(world)
         
         x = local.x * self.widthMultiplier * depthModifier
-        y = local.z * self.depthMultiplier + local.y
+        y = local.z * self.depthMultiplier 
+        y += local.y * Constants.HEIGHT_SCALING * depthModifier
 
         return Vec2d(x + self.offset[0], -y + self.offset[1])
