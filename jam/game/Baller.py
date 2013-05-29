@@ -26,7 +26,7 @@ class Baller(Entity):
         shadowHeight = 30. * scale
         
         pygame.draw.ellipse(canvas, 0x000000, (shadowPos[0] - shadowWidth / 2, shadowPos[1] - shadowHeight / 2, shadowWidth, shadowHeight))
-        pygame.draw.rect(canvas, 0xFF0000, (screenPos[0] - width / 2, screenPos[1] - height, width, height))
+        pygame.draw.rect(canvas, 0xAA0077, (screenPos[0] - width / 2, screenPos[1] - height, width, height))
         
     def update(self, delta):
         self.input.update(delta)

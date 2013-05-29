@@ -13,7 +13,7 @@ class Court:
         self.botRight = Vec3d(+width, 0, +depth)
         
     def draw(self, camera, canvas):
-        pygame.draw.polygon(canvas, 0xFF8800, (camera.toScreen(self.topLeft),
+        pygame.draw.polygon(canvas, 0xFFAA77, (camera.toScreen(self.topLeft),
                                                 camera.toScreen(self.topRight),
                                                 camera.toScreen(self.botRight),
                                                 camera.toScreen(self.botLeft)))
