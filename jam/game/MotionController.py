@@ -1,8 +1,6 @@
 from jam.common.Vec3d import Vec3d
 from collections import deque
 
-EPSILON = 0.01
-
 # from http://www.pygame.org/wiki/BezierCurve
 def calculate_bezier(p, steps = 30):
     t = 1.0 / steps
@@ -35,10 +33,13 @@ class MotionController:
     
     def update(self, delta):
         if self.path is not None:
+            speed = delta
+            
             goal = self.path[0]
-            rel = (goal - self.owner.pos).normalized() * delta
+            rel = (goal - self.owner.pos).normalized() * speed
             self.move(rel)
-            if self.owner.pos.get_distance(goal) < EPSILON:
+            
+            if self.owner.pos.get_distance(goal) <= speed:
                 self.path.popleft()
                 if len(self.path) == 0:
                     self.path = None
