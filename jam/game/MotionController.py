@@ -15,25 +15,31 @@ def calculate_bezier(p, steps = 30):
     fdd = 2 * fdd_per_2
     fddd_per_6 = fddd_per_2 / 3.0
     
+    distance = 0.
+    
     points = deque()
     for x in range(steps):
         points.append(Vec3d(f))
-        f += fd + fdd_per_2 + fddd_per_6
+        delta = fd + fdd_per_2 + fddd_per_6
+        distance += delta.length
+        f += delta
         fd += fdd + fddd_per_2
         fdd += fddd
         fdd_per_2 += fddd_per_2
     points.append(Vec3d(f))
     
-    return points
+    return points, distance
 
 class MotionController:
     def __init__(self, owner):
         self.owner = owner
         self.path = None
+        self.afterMove = None
+        self.speed = 1.
     
     def update(self, delta):
         if self.path is not None:
-            speed = delta
+            speed = self.speed * delta
             
             goal = self.path[0]
             rel = (goal - self.owner.pos).normalized() * speed
@@ -43,18 +49,28 @@ class MotionController:
                 self.path.popleft()
                 if len(self.path) == 0:
                     self.path = None
+                    if self.afterMove is not None:
+                        self.afterMove(self.owner)
+                        self.afterMove = None
         
     def move(self, relative):
         self.owner.capsule.move(relative)
 
-    def moveToPosition(self, pos):
-        self.moveAlongPath([Vec3d(self.owner.pos), Vec3d(pos), Vec3d(pos)])
+    def moveToPosition(self, pos, duration):
+        self.moveAlongPath([Vec3d(self.owner.pos), Vec3d(pos), Vec3d(pos)], duration)
         
-    def moveAlongPath(self, path):
+    def moveAlongPath(self, path, duration):
         if len(path) != 3:
             print("Invalid path length")
             self.path = None
             return
             
-        self.path = calculate_bezier([Vec3d(self.owner.pos)] + path)
+        self.path, dist = calculate_bezier([Vec3d(self.owner.pos)] + path)
+        self.speed = dist / duration
         self.path.popleft()
+        
+    def afterMoveDo(self, function):
+        self.afterMove = function
+        
+    def isMoving(self):
+        return self.path is not None

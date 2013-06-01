@@ -401,3 +401,5 @@ class Vec3d(object):
         
     def __setstate__(self, dict):
         self.x, self.y, self.z = dict
+        
+AXIS_VECTORS = [ Vec3d(1, 0, 0), Vec3d(0, 1, 0), Vec3d(0, 0, 1) ]

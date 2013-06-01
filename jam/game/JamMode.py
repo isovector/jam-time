@@ -23,8 +23,6 @@ class JamMode(JamModeUpdate, GameMode):
         
     def init(self):
         baller = self.addBaller(Baller(Vec3d(0, 0, 0)))
-        baller.motion.moveAlongPath([Vec3d(-3, 6, 0), Vec3d(6, 6, 0), Vec3d(10, 0, 0)])
-        
         
         # THIS IS A BIG OLD HACK
         self.player = self.entities[0]

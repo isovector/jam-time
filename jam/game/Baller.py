@@ -12,7 +12,7 @@ class Baller(Entity):
         Entity.__init__(self, pos)
         self.input = InputController(self)
         self.motion = MotionController(self)
-        self.action = ActionController()
+        self.action = ActionController(self)
         
     def register(self, game):
         self.game = game

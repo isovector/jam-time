@@ -16,7 +16,6 @@ class Application:
         self.width = 700
         self.height = 400
         self.fps = 60
-        self.delta = 1./self.fps
         self.clock = None
         self.screen = None
         
@@ -46,7 +45,8 @@ class Application:
                     Application.keymap.onInputEvent(event)
                     self.gameMode.onInputEvent(event)
             
-            self.gameMode.update(self.delta);
+            delta = self.clock.tick(self.fps) / 1000.
+            self.gameMode.update(delta);
             self.gameMode.draw(self.screen);
             pygame.display.flip()
 
