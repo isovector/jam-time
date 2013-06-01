@@ -2,7 +2,6 @@
 
 import pygame
 from pygame.locals import *
-from pygame.color import *
 
 from GameMode import *
 from KeyMap import *
@@ -36,7 +35,7 @@ class Application:
         pygame.init() 
         
         while running:
-            self.screen.fill(pygame.color.THECOLORS["blue"])
+            self.screen.fill(0x999999)
             
             for event in pygame.event.get():  
                 if event.type == QUIT or (event.type == KEYDOWN and (event.key in [K_ESCAPE])):
