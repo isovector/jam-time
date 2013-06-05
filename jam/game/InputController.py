@@ -41,5 +41,8 @@ class InputController:
         elif (event.type == KEYUP) and(event.key == self.actionBuffer):
             self.context.sendTap(self.actionBuffer)
             self.actionBuffer = None
+        elif (event.type == KEYUP) and (event.key != self.actionBuffer):
+            self.context.sendRelease(event.key)
+        
             
             

@@ -9,3 +9,6 @@ class ContextController:
     
     def sendPress(self, key):
         pass 
+    
+    def sendRelease(self, key):
+        pass
