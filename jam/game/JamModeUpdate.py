@@ -3,6 +3,7 @@ from jam.common.Vec3d import Vec3d
 class JamModeUpdate:
     def update(self, delta):
         self.camera.update(delta)
+        self.court.update(delta)
         
         self.totalTime += delta
             
