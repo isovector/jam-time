@@ -38,6 +38,9 @@ class InputController:
             # scale speed by character's speed
             turbo = True
 
+        if dir.get_length_sqrd() > 0:
+            dir.length = 1.0
+
         velocity = dir * self.speed
 
         if Application.keymap[nameToKey["Shoot"]]:

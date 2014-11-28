@@ -6,10 +6,10 @@ def inVerticalConstraint(capsule, other):
             other.y < capsule.y < other.y + other.height or \
             capsule.y == other.y
 
-
 class CapsuleManager:
-    def __init__(self):
+    def __init__(self, bounds):
         self.capsules = []
+        self.bounds = bounds
 
     def addCapsule(self, capsule):
         capsule.register(self)
@@ -41,6 +41,8 @@ class CapsuleManager:
             magnitude = rel.length
 
         capsule.pos += rel
+        capsule.pos.clamp(self.bounds)
+
         if not capsule.ephemeral:
             ignore.append(capsule)
             for other in hit:

@@ -73,6 +73,9 @@ class MotionController:
             return
 
         self.path, dist = calculate_bezier([Vec3d(self.owner.pos)] + path)
+        for i in range(0, len(self.path)):
+            self.path[i].clamp(self.owner.capsule.manager.bounds)
+
         self.speed = dist / duration
         self.path.popleft()
 

@@ -46,3 +46,9 @@ class Court:
     def getNetPos(net):
         return Court.getGroundPos(net) + Court.BASKET_HEIGHT * AXIS_VECTORS[1]
 
+    @staticmethod
+    def getBounds():
+        width = Court.LENGTH / 2
+        depth = Court.DEPTH / 2
+        return (-width, width, 0, 100, -depth, depth)
+

@@ -18,7 +18,7 @@ class JamMode(JamModeUpdate, GameMode):
         self.court = Court()
         self.entities = []
 
-        self.physics = CapsuleManager()
+        self.physics = CapsuleManager(Court.getBounds())
         self.totalTime = 0
 
 
