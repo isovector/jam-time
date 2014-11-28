@@ -3,6 +3,7 @@ import pygame
 from jam.common.Vec3d import Vec3d, AXIS_VECTORS
 
 import Constants
+from Court import Court
 from Entity import Entity
 from Baller import Baller
 from InputController import InputController
@@ -71,14 +72,8 @@ class Ball(Entity):
 
 
     def onContact(self):
-        self.motion.moveToPosition(
-            Vec3d(
-                -Constants.COURT_LENGTH / 2 + Constants.BASKET_OFFSET,
-                0,
-                0),
-            0.5)
+        self.motion.moveToPosition(Court.getGroundPos(-1), 0.5)
         self.state = BallState.default
-
 
 
     def draw(self, canvas, screenPos, scale):
