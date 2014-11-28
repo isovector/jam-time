@@ -28,20 +28,6 @@ class Basket:
         netWidth = 40
         netHeight = 20
 
-        pygame.draw.line(canvas, 0x333333,
-            camera.toScreen(self.netBaseBot),
-            camera.toScreen(self.netBaseTop),
-            5)
-
-        pygame.draw.polygon(canvas, 0x222222,
-            (camera.toScreen(self.netBoardTopLeft),
-             camera.toScreen(self.netBoardTopRight),
-             camera.toScreen(self.netBoardBotRight),
-             camera.toScreen(self.netBoardBotLeft)))
-
-        net = camera.toScreen(self.netPos)
-        pygame.draw.ellipse(canvas, 0xFF0000, (net[0] - netWidth / 2, net[1] - netHeight / 2, netWidth, netHeight), 3)
-
         longTL = camera.toScreen(self.longTopLeft)
         longBR = camera.toScreen(self.longBotRight)
 
@@ -58,3 +44,17 @@ class Basket:
                 end = math.pi / 2
             pygame.draw.arc(canvas, 0xFF0000, (x, y, w, h), start, end, 1)
 
+
+        pygame.draw.line(canvas, 0x333333,
+            camera.toScreen(self.netBaseBot),
+            camera.toScreen(self.netBaseTop),
+            5)
+
+        pygame.draw.polygon(canvas, 0x222222,
+            (camera.toScreen(self.netBoardTopLeft),
+             camera.toScreen(self.netBoardTopRight),
+             camera.toScreen(self.netBoardBotRight),
+             camera.toScreen(self.netBoardBotLeft)))
+
+        net = camera.toScreen(self.netPos)
+        pygame.draw.ellipse(canvas, 0xFF0000, (net[0] - netWidth / 2, net[1] - netHeight / 2, netWidth, netHeight), 3)

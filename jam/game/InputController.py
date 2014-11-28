@@ -33,7 +33,7 @@ class InputController:
         if Application.keymap[nameToKey["Right"]]:
             dir.x = 1
         if Application.keymap[nameToKey["Turbo"]]:
-            dir *= 2
+            dir *= 1.3
             # TODO: decrease turbo timer
             # scale speed by character's speed
             turbo = True

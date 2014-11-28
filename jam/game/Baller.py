@@ -19,6 +19,7 @@ class Baller(Entity):
 
     def land(self, pos):
         def onGround(baller):
+            # TODO: traveling
             baller.input.enable(True)
             baller.capsule.pos.y = 0
 

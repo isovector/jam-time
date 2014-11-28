@@ -10,6 +10,7 @@ class ActionController:
     def passing(self):
         ball = self.owner.game.ball
         if self.owner.hasBall:
+            self.owner.net *= -1
             ball.capsule.teleport(Vec3d(0, 0, 0))
             ball.release()
 
