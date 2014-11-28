@@ -39,10 +39,10 @@ class InputController:
             turbo = True
 
         if Application.keymap[nameToKey["Shoot"]]:
-            if turbo:
-                self.owner.action.dunk(Court.getNetPos(-1))
+            if turbo and dir.x * self.owner.net > 0:
+                self.owner.action.dunk()
             else:
-                self.owner.action.shoot(Court.getNetPos(-1))
+                self.owner.action.shoot()
 
         if Application.keymap[nameToKey["Pass"]]:
             self.owner.action.passing()

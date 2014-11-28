@@ -13,6 +13,7 @@ class Baller(Entity):
         self.input = InputController(self)
         self.motion = MotionController(self)
         self.action = ActionController(self)
+        self.net = -1
 
 
     def obtainBall(self):

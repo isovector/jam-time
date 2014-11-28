@@ -24,6 +24,7 @@ class Ball(Entity):
         self.lastHolder = None
         self.motion = MotionController(self)
         self.state = BallState.default
+        self.net = 0
 
         def ballHandler(self, capsule):
             ball = self.owner
@@ -52,7 +53,8 @@ class Ball(Entity):
         self.holder = None
 
 
-    def shoot(self, shooter, netPos):
+    def shoot(self, shooter, net):
+        netPos = Court.getNetPos(net)
         dir = netPos - self.pos
         dir.y = 0
         dir.length = 1
@@ -61,9 +63,7 @@ class Ball(Entity):
         initialJump = self.pos + dunkHeight + AXIS_VECTORS[1] * netPos.y + dir
         controlPoint = netPos + dunkHeight + dir * 2
 
-        netFloor = Vec3d(netPos)
-        netFloor.y = 0
-
+        self.net = net
         self.state = BallState.shoot
 
         self.release()
@@ -72,19 +72,20 @@ class Ball(Entity):
 
 
     def onContact(self):
-        self.motion.moveToPosition(Court.getGroundPos(-1), 0.5)
+        self.motion.moveToPosition(Court.getGroundPos(self.net), 0.5)
         self.state = BallState.default
 
 
     def draw(self, canvas, screenPos, scale):
-        width = 50. * scale
-        height = 100. * scale
+        width = 20. * scale
+        height = 20. * scale
 
-        shadowPos = self.game.camera.toScreen(Vec3d(self.pos.x, self.pos.y, self.pos.z))
+        shadowPos = self.game.camera.toScreen(Vec3d(self.pos.x, 0, self.pos.z))
         shadowWidth = 20. * scale
         shadowHeight = 20. * scale
 
-        pygame.draw.ellipse(canvas, 0xFF8800, (shadowPos[0] - shadowWidth / 2, shadowPos[1] - shadowHeight / 2, shadowWidth, shadowHeight))
+        pygame.draw.ellipse(canvas, 0x000000, (shadowPos[0] - shadowWidth / 2, shadowPos[1] - shadowHeight / 2, shadowWidth, shadowHeight))
+        pygame.draw.ellipse(canvas, 0xFF8800, (screenPos[0] - width / 2, screenPos[1] - height, width, height))
 
 
     def update(self, delta):
