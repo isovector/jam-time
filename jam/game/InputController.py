@@ -10,11 +10,18 @@ class InputController:
     def __init__(self, owner):
         self.owner = owner
         self.speed = 7.
-    
+        self.isEnabled = True
+
+    def enable(self, value):
+        self.isEnabled = value
+
     def update(self, delta):
+        if not self.isEnabled:
+            return
+
         motion = self.owner.motion
         dir = Vec3d(0, 0, 0)
-        
+
         if Application.keymap[nameToKey["Up"]]:
             dir.z = 1
         if Application.keymap[nameToKey["Down"]]:
@@ -25,11 +32,11 @@ class InputController:
             dir.x = 1
         if Application.keymap[nameToKey["Shoot"]]:
             self.owner.action.dunk(Vec3d(-Constants.COURT_LENGTH / 2 + Constants.BASKET_OFFSET, Constants.BASKET_HEIGHT, 0))
-            
+
         if Application.keymap[nameToKey["Pass"]]:
             self.owner.action.passing()
-        
+
         motion.move(dir * delta * self.speed)
-        
+
     def onInputEvent(self, event):
         pass

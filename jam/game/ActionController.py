@@ -26,8 +26,13 @@ class ActionController:
         netFloor = Vec3d(netPos)
         netFloor.y = 0
 
+        self.owner.input.enable(False)
         self.owner.motion.moveAlongPath([initialJump, controlPoint, netPos], 0.7)
-        self.owner.motion.afterMoveDo(lambda baller: baller.motion.moveToPosition(netFloor, 0.5))
+
+        def nextAction(baller):
+            baller.motion.moveToPosition(netFloor, 0.5)
+            baller.motion.afterMoveDo(lambda baller: baller.input.enable(True))
+        self.owner.motion.afterMoveDo(nextAction)
 
 
     def _getDunkHeight(self):
