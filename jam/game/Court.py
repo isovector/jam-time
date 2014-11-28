@@ -14,6 +14,7 @@ class Court:
     BOARD_WIDTH = 1.8
     BOARD_HEIGHT = 1.05
     RUNOFF = 2
+    LONG_RADIUS = 7.24
 
     def __init__(self):
         width = Court.LENGTH / 2

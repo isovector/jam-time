@@ -40,3 +40,4 @@ class Camera:
         y += local.y * Constants.HEIGHT_SCALING * depthModifier
 
         return Vec2d(x + self.offset[0], -y + self.offset[1])
+

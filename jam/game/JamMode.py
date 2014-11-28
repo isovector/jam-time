@@ -30,6 +30,7 @@ class JamMode(JamModeUpdate, GameMode):
     def goal(self, net):
         print "2 points!"
 
+
     def addEntity(self, entity):
         self.physics.addCapsule(entity.capsule)
         self.entities.append(entity)

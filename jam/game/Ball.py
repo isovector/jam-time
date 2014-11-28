@@ -91,6 +91,7 @@ class Ball(Entity):
 
     def onContact(self):
         self.state = BallState.rebound
+
         if self.sinkPerc < 15:
             # HUGE REBOUND
             pass
