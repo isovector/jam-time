@@ -27,8 +27,8 @@ class JamMode(JamModeUpdate, GameMode):
         self.ball = self.addEntity(Ball(Vec3d(0, 0, 0)))
 
 
-    def goal(self, net):
-        print "2 points!"
+    def goal(self, net, points):
+        print "%d points!" % points
 
 
     def addEntity(self, entity):

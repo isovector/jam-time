@@ -27,6 +27,7 @@ class Ball(Entity):
         self.net = 0
         self.bounces = 0
         self.sinkPerc = 0
+        self.shootDist = 0
 
         def ballHandler(self, capsule):
             ball = self.owner
@@ -65,7 +66,7 @@ class Ball(Entity):
         self.bounces = min(self.bounces, 3)
 
 
-    def shoot(self, shooter, net):
+    def shoot(self, shooter, net, dist):
         netPos = Court.getNetPos(net)
         dir = netPos - self.pos
         dir.y = 0
@@ -77,6 +78,7 @@ class Ball(Entity):
 
         self.net = net
         self.state = BallState.shoot
+        self.shootDist = dist
         self.computeSinkage()
 
         self.release()
@@ -103,7 +105,8 @@ class Ball(Entity):
             return
 
         if random.randrange(0, 100) < self.sinkPerc:
-            self.game.goal(self.net)
+            points = 2 if self.shootDist < Court.LONG_RADIUS else 3
+            self.game.goal(self.net, points)
 
         self.motion.moveToPosition(Court.getGroundPos(self.net), 0.5)
         self.state = BallState.default

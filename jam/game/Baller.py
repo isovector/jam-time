@@ -19,7 +19,7 @@ class Baller(Entity):
 
 
     def obtainBall(self):
-        print "I've got the ball!"
+        pass
 
     @property
     def hasBall(self):

@@ -15,7 +15,9 @@ class ActionController:
 
     def shoot(self):
         if self.owner.hasBall:
-            self.owner.game.ball.shoot(self.owner, self.owner.net)
+            dist = (self.owner.pos - Court.getGroundPos(self.owner.net)).get_length()
+
+            self.owner.game.ball.shoot(self.owner, self.owner.net, dist)
 
     def dunk(self):
         if not self.owner.hasBall:
