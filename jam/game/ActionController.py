@@ -14,6 +14,7 @@ class ActionController:
 
         baller = self.owner
         if dir.get_length_sqrd() == 0:
+            self.velocity = dir
             return
         dir.length = 1.0
 

@@ -53,6 +53,14 @@ class Baller(Entity):
         width = 50. * scale
         height = 100. * scale
 
+        if not (0 < screenPos[0] < 700 and 0 < screenPos[1] < 400):
+            screenPos.clamp((15, 685, 15, 400))
+            width = 30
+            height = 30
+            pygame.draw.ellipse(canvas, self.color, (screenPos[0] - width / 2, screenPos[1] - height, width, height), 5)
+            return
+
+
         shadowPos = self.game.camera.toScreen(Vec3d(self.pos.x, 0, self.pos.z))
         shadowWidth = 80. * scale
         shadowHeight = 30. * scale

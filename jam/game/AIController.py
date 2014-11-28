@@ -1,7 +1,7 @@
 from InputController import InputController
 from Ball import BallState
 from Court import Court
-from jam.common.Vec3d import Vec3d
+from jam.common.Vec3d import Vec3d, AXIS_VECTORS
 
 class AIController(InputController):
     def __init__(self, owner):
@@ -21,12 +21,12 @@ class AIController(InputController):
 
         if not baller.hasBall:
             if ball.state == BallState.shoot:
-                baller.action.move(delta, -netDir, True)
+                baller.action.move(delta, -AXIS_VECTORS[0], True)
             else:
                 baller.action.move(delta, ballDir, False)
         else:
             if netDir.length < Court.LONG_RADIUS:
                 baller.action.shoot()
             else:
-                baller.action.move(delta, netDir, False)
+                baller.action.move(delta, AXIS_VECTORS[0], False)
 
