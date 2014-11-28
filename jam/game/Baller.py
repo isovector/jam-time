@@ -1,6 +1,6 @@
 import pygame
 
-from jam.common.Vec3d import Vec3d
+from jam.common.Vec3d import Vec3d, AXIS_VECTORS
 
 from Entity import Entity
 from Stats import Stats
@@ -16,6 +16,25 @@ class Baller(Entity):
         self.motion = MotionController(self)
         self.action = ActionController(self)
         self.net = -1
+
+    def land(self, pos):
+        def onGround(baller):
+            baller.input.enable(True)
+            baller.capsule.pos.y = 0
+
+        self.motion.moveToPosition(pos, 0.5)
+        self.motion.afterMoveDo(onGround)
+
+
+    def jump(self):
+        self.input.enable(False)
+
+        pos = Vec3d(self.pos)
+        self.motion.moveToPosition(self.pos + AXIS_VECTORS[1] * self._getJumpHeight(), 0.5)
+        self.motion.afterMoveDo(lambda baller: self.land(pos))
+
+    def _getJumpHeight(self):
+        return 1.5
 
 
     def obtainBall(self):

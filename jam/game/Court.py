@@ -6,7 +6,7 @@ from Basket import Basket
 
 class Court:
     LENGTH = 28
-    GFX_LENGTH = 1400
+    GFX_LENGTH = 1800
     DEPTH = 15
     GFX_DEPTH = 300
     BASKET_OFFSET = 1.575

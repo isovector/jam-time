@@ -79,5 +79,6 @@ class MotionController:
     def afterMoveDo(self, function):
         self.afterMove = function
 
+    @property
     def isMoving(self):
         return self.path is not None

@@ -12,15 +12,15 @@ class InputController:
         self.owner = owner
         self.speed = 7 + (owner.stats.speed - 5) / 2.
         self.isEnabled = True
+        self.isJumping = False
 
     def enable(self, value):
         self.isEnabled = value
 
     def update(self, delta):
-        if not self.isEnabled:
-            return
+        baller = self.owner
 
-        motion = self.owner.motion
+        motion = baller.motion
         dir = Vec3d(0, 0, 0)
         turbo = False
 
@@ -39,13 +39,25 @@ class InputController:
             turbo = True
 
         if Application.keymap[nameToKey["Shoot"]]:
-            if turbo and dir.x * self.owner.net > 0:
-                self.owner.action.dunk()
-            else:
-                self.owner.action.shoot()
+            if not self.isEnabled:
+                return
+
+            if turbo and dir.x * baller.net > 0:
+                baller.action.dunk()
+            elif not self.isJumping:
+                self.isJumping = True
+                baller.action.jump()
+        elif self.isJumping:
+            if baller.motion.isMoving:
+                baller.action.shoot()
+            self.isJumping = False
+
+        if not self.isEnabled:
+            return
+
 
         if Application.keymap[nameToKey["Pass"]]:
-            self.owner.action.passing()
+            baller.action.passing()
 
         motion.move(dir * delta * self.speed)
 
