@@ -2,7 +2,7 @@ import pygame
 
 from jam.common.Vec3d import Vec3d, AXIS_VECTORS
 
-import Constants
+import random
 from Court import Court
 from Entity import Entity
 from Baller import Baller
@@ -25,6 +25,8 @@ class Ball(Entity):
         self.motion = MotionController(self)
         self.state = BallState.default
         self.net = 0
+        self.bounces = 0
+        self.sinkPerc = 0
 
         def ballHandler(self, capsule):
             ball = self.owner
@@ -53,6 +55,16 @@ class Ball(Entity):
         self.holder = None
 
 
+    def computeSinkage(self):
+        # TODO: this is pretty shit
+        stats = self.holder.stats
+        self.sinkPerc = min(random.randrange(0, 100) + stats.shorts, 100)
+        self.bounces = 0
+        while random.random() < 0.8:
+            self.bounces += 1
+        self.bounces = min(self.bounces, 3)
+
+
     def shoot(self, shooter, net):
         netPos = Court.getNetPos(net)
         dir = netPos - self.pos
@@ -65,13 +77,33 @@ class Ball(Entity):
 
         self.net = net
         self.state = BallState.shoot
+        self.computeSinkage()
 
         self.release()
         self.motion.moveAlongPath([initialJump, controlPoint, netPos], 1)
         self.motion.afterMoveDo(lambda x: self.onContact())
 
 
+    def doBounce(self):
+        self.motion.moveToPosition(Court.getNetPos(self.net), 0.2)
+        self.motion.afterMoveDo(lambda x: self.onContact())
+
+
     def onContact(self):
+        self.state = BallState.rebound
+        if self.sinkPerc < 15:
+            # HUGE REBOUND
+            pass
+
+        if self.bounces != 0:
+            self.bounces -= 1
+            self.motion.moveToPosition(Court.getNetPos(self.net) + AXIS_VECTORS[1], 0.2)
+            self.motion.afterMoveDo(lambda x: self.doBounce())
+            return
+
+        if random.randrange(0, 100) < self.sinkPerc:
+            self.game.goal(self.net)
+
         self.motion.moveToPosition(Court.getGroundPos(self.net), 0.5)
         self.state = BallState.default
 

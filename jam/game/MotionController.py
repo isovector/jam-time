@@ -32,9 +32,12 @@ def calculate_bezier(p, steps = 30):
 
 class MotionController:
     def __init__(self, owner):
+        from Baller import Baller
+
         self.owner = owner
         self.path = None
         self.afterMove = None
+
         self.speed = 1.
 
     def clear(self):

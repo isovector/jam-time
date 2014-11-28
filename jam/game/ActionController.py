@@ -9,17 +9,18 @@ class ActionController:
 
     def passing(self):
         ball = self.owner.game.ball
-        if ball.holder == self.owner:
+        if self.owner.hasBall:
             ball.capsule.teleport(Vec3d(0, 0, 0))
             ball.release()
 
     def shoot(self):
-        ball = self.owner.game.ball
-        if ball.holder != self.owner:
-            return
-        ball.shoot(self.owner, self.owner.net)
+        if self.owner.hasBall:
+            self.owner.game.ball.shoot(self.owner, self.owner.net)
 
     def dunk(self):
+        if not self.owner.hasBall:
+            return
+
         netPos = Court.getNetPos(self.owner.net)
         dir = netPos - self.owner.pos
         dir.y = 0

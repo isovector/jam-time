@@ -10,7 +10,7 @@ nameToKey = {"Up":K_w, "Down":K_s, "Left":K_a, "Right":K_d, "Shoot":K_e, "Pass":
 class InputController:
     def __init__(self, owner):
         self.owner = owner
-        self.speed = 7.
+        self.speed = 7 + (owner.stats.speed - 5) / 2.
         self.isEnabled = True
 
     def enable(self, value):
