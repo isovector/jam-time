@@ -20,15 +20,18 @@ class JamMode(JamModeUpdate, GameMode):
 
         self.physics = CapsuleManager(Court.getBounds())
         self.totalTime = 0
+        self.font = pygame.font.SysFont(None, 36)
+        self.score = [0, 0]
 
 
     def init(self):
+
         self.player = self.addEntity(Baller(Vec3d(0, 0, 0)))
         self.ball = self.addEntity(Ball(Vec3d(0, 0, 0)))
 
 
     def goal(self, net, points):
-        print "%d points!" % points
+        self.score[(net + 1) / 2] += points
 
 
     def addEntity(self, entity):
@@ -44,4 +47,7 @@ class JamMode(JamModeUpdate, GameMode):
         self.entities = sorted(self.entities, key=lambda entity: -entity.pos.z)
         for entity in self.entities:
             entity.draw(canvas, self.camera.toScreen(entity.pos), self.camera.getDepthModifier(entity.pos))
+
+        text = self.font.render("%d:%d" % (self.score[1], self.score[0]), False, (0, 0, 0))
+        canvas.blit(text, (340, 15))
 

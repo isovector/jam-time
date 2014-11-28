@@ -59,9 +59,9 @@ class Ball(Entity):
     def computeSinkage(self):
         # TODO: this is pretty shit
         stats = self.holder.stats
-        self.sinkPerc = min(random.randrange(0, 100) + stats.shorts, 100)
+        self.sinkPerc = min(random.randrange(30, 100) + stats.shorts, 100)
         self.bounces = 0
-        while random.random() < 0.8:
+        while random.random() < 0.25:
             self.bounces += 1
         self.bounces = min(self.bounces, 3)
 
