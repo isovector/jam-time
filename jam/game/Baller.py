@@ -26,11 +26,14 @@ class Baller(Entity):
         self.motion.afterMoveDo(onGround)
 
 
-    def jump(self):
+    def jump(self, velocity):
         self.input.enable(False)
 
-        pos = Vec3d(self.pos)
-        self.motion.moveToPosition(self.pos + AXIS_VECTORS[1] * self._getJumpHeight(), 0.5)
+        pos = Vec3d(self.pos + velocity)
+        duration = 0.5
+        self.motion.moveToPosition(
+            self.pos + AXIS_VECTORS[1] * self._getJumpHeight() + velocity * duration,
+            duration)
         self.motion.afterMoveDo(lambda baller: self.land(pos))
 
     def _getJumpHeight(self):

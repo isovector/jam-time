@@ -13,13 +13,12 @@ class ActionController:
             ball.capsule.teleport(Vec3d(0, 0, 0))
             ball.release()
 
-    def jump(self):
-        self.owner.jump()
+    def jump(self, velocity):
+        self.owner.jump(velocity * 0.5)
 
     def shoot(self):
         if self.owner.hasBall:
             dist = (self.owner.pos - Court.getGroundPos(self.owner.net)).get_length()
-
             self.owner.game.ball.shoot(self.owner, self.owner.net, dist)
 
     def dunk(self):
