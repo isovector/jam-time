@@ -15,6 +15,7 @@ class Baller(Entity):
         self.input = InputController(self)
         self.motion = MotionController(self)
         self.action = ActionController(self)
+        self.color = 0xAA0077
         self.net = -1
 
     def land(self, pos):
@@ -57,7 +58,7 @@ class Baller(Entity):
         shadowHeight = 30. * scale
 
         pygame.draw.ellipse(canvas, 0x000000, (shadowPos[0] - shadowWidth / 2, shadowPos[1] - shadowHeight / 2, shadowWidth, shadowHeight))
-        pygame.draw.rect(canvas, 0xAA0077, (screenPos[0] - width / 2, screenPos[1] - height, width, height))
+        pygame.draw.rect(canvas, self.color, (screenPos[0] - width / 2, screenPos[1] - height, width, height))
 
     def update(self, delta):
         self.input.update(delta)

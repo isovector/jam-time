@@ -5,6 +5,7 @@ from Capsule import Capsule
 from CapsuleManager import CapsuleManager
 from Court import Court
 from JamModeUpdate import JamModeUpdate
+from AIController import AIController
 
 import pygame
 from jam.common.Vec3d import Vec3d
@@ -27,6 +28,11 @@ class JamMode(JamModeUpdate, GameMode):
     def init(self):
 
         self.player = self.addEntity(Baller(Vec3d(0, 0, 0)))
+        self.computer = self.addEntity(Baller(Vec3d(5, 0, 0)))
+        self.computer.input = AIController(self.computer)
+        self.computer.color = 0x00AAFF
+        self.computer.net = 1
+
         self.ball = self.addEntity(Ball(Vec3d(0, 0, 0)))
 
 

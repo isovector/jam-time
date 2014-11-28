@@ -7,10 +7,7 @@ class JamModeUpdate:
 
         self.totalTime += delta
 
-        if self.ball.state != BallState.default:
-            self.camera.focus = self.ball.pos
-        else:
-            self.camera.focus = self.player.pos
+        self.camera.focus = self.ball.pos
 
         for entity in self.entities:
             entity.update(delta)

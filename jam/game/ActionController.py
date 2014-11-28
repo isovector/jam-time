@@ -6,6 +6,23 @@ from Court import Court
 class ActionController:
     def __init__(self, owner):
         self.owner = owner
+        self.speed = 7 + (owner.stats.speed - 5) / 2.
+        self.velocity = 0
+
+    def move(self, delta, dir, turbo):
+        dir.y = 0
+
+        baller = self.owner
+        if dir.get_length_sqrd() == 0:
+            return
+        dir.length = 1.0
+
+        if turbo:
+            dir *= 1.3
+
+        self.velocity = dir * self.speed
+        baller.motion.move(self.velocity * delta)
+
 
     def passing(self):
         ball = self.owner.game.ball
@@ -14,8 +31,8 @@ class ActionController:
             ball.capsule.teleport(Vec3d(0, 0, 0))
             ball.release()
 
-    def jump(self, velocity):
-        self.owner.jump(velocity * 0.5)
+    def jump(self):
+        self.owner.jump(self.velocity * 0.5)
 
     def shoot(self):
         if self.owner.hasBall:

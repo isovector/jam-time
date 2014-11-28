@@ -33,15 +33,7 @@ class InputController:
         if Application.keymap[nameToKey["Right"]]:
             dir.x = 1
         if Application.keymap[nameToKey["Turbo"]]:
-            dir *= 1.3
-            # TODO: decrease turbo timer
-            # scale speed by character's speed
             turbo = True
-
-        if dir.get_length_sqrd() > 0:
-            dir.length = 1.0
-
-        velocity = dir * self.speed
 
         if Application.keymap[nameToKey["Shoot"]]:
             if not self.isEnabled:
@@ -51,7 +43,7 @@ class InputController:
                 baller.action.dunk()
             elif not self.isJumping:
                 self.isJumping = True
-                baller.action.jump(velocity)
+                baller.action.jump()
         elif self.isJumping:
             if baller.motion.isMoving:
                 baller.action.shoot()
@@ -63,8 +55,7 @@ class InputController:
 
         if Application.keymap[nameToKey["Pass"]]:
             baller.action.passing()
-
-        motion.move(velocity * delta)
+        baller.action.move(delta, dir, turbo)
 
     def onInputEvent(self, event):
         pass
