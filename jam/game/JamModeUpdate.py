@@ -1,4 +1,5 @@
 from jam.common.Vec3d import Vec3d
+from Ball import BallState
 
 class JamModeUpdate:
     def update(self, delta):
@@ -6,7 +7,10 @@ class JamModeUpdate:
 
         self.totalTime += delta
 
-        self.camera.focus = self.player.pos
+        if self.ball.state != BallState.default:
+            self.camera.focus = self.ball.pos
+        else:
+            self.camera.focus = self.player.pos
 
         for entity in self.entities:
             entity.update(delta)

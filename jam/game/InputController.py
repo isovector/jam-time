@@ -21,6 +21,7 @@ class InputController:
 
         motion = self.owner.motion
         dir = Vec3d(0, 0, 0)
+        turbo = False
 
         if Application.keymap[nameToKey["Up"]]:
             dir.z = 1
@@ -30,8 +31,25 @@ class InputController:
             dir.x = -1
         if Application.keymap[nameToKey["Right"]]:
             dir.x = 1
+        if Application.keymap[nameToKey["Turbo"]]:
+            dir *= 2
+            # TODO: decrease turbo timer
+            # scale speed by character's speed
+            turbo = True
+
         if Application.keymap[nameToKey["Shoot"]]:
-            self.owner.action.dunk(Vec3d(-Constants.COURT_LENGTH / 2 + Constants.BASKET_OFFSET, Constants.BASKET_HEIGHT, 0))
+            if turbo:
+                self.owner.action.dunk(
+                    Vec3d(
+                        -Constants.COURT_LENGTH / 2 + Constants.BASKET_OFFSET,
+                        Constants.BASKET_HEIGHT,
+                        0))
+            else:
+                self.owner.action.shoot(
+                    Vec3d(
+                        -Constants.COURT_LENGTH / 2 + Constants.BASKET_OFFSET,
+                        Constants.BASKET_HEIGHT,
+                        0))
 
         if Application.keymap[nameToKey["Pass"]]:
             self.owner.action.passing()

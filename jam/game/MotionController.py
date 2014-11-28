@@ -37,6 +37,9 @@ class MotionController:
         self.afterMove = None
         self.speed = 1.
 
+    def clear(self):
+        self.path = None
+
     def update(self, delta):
         if self.path is not None:
             speed = self.speed * delta

@@ -40,8 +40,8 @@ class CapsuleManager:
                 rel *= 1. / (slowCount + 1)
             magnitude = rel.length
 
-            capsule.pos += rel
-
+        capsule.pos += rel
+        if not capsule.ephemeral:
             ignore.append(capsule)
             for other in hit:
                 if capsule.onHit:
