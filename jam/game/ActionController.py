@@ -56,9 +56,14 @@ class ActionController:
         self.owner.input.enable(False)
         self.owner.motion.moveAlongPath([initialJump, controlPoint, netPos], 0.7)
 
+        def finishDunk(baller):
+            points = 2
+            baller.game.goal(baller.net, points)
+            baller.input.enable(True)
+
         def nextAction(baller):
             baller.motion.moveToPosition(Court.getGroundPos(baller.net), 0.5)
-            baller.motion.afterMoveDo(lambda baller: baller.input.enable(True))
+            baller.motion.afterMoveDo(lambda baller: finishDunk(baller))
         self.owner.motion.afterMoveDo(nextAction)
 
 
